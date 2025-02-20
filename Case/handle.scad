@@ -12,12 +12,13 @@ include <MCAD/boxes.scad>;
 
 // Matching the bolt spacing on the Top Cover
 hole_to_hole = 120;
-// Tradeoff between more thumbscrew clearance vs hand space
-hole_offset = 10;
+
 // Handle height
 height = 40;
 // Handle width
 width = 25;
+// Tradeoff between more thumbscrew clearance vs hand space
+hole_offset = 15;
 thickness = width/2;
 // 3mm is enough strength when using typical filament
 base_thickness = 3;
@@ -27,7 +28,7 @@ m6_r = 6/2 + 0.5;
 
 $fn = 128;
 
-rotate([-90, 0, 0]) difference() {
+difference() {
     union() {
         intersection() {
             // Rounding the overall shape of the handle by starting with a rounded cube
@@ -35,10 +36,10 @@ rotate([-90, 0, 0]) difference() {
             // Rounding each section of the handle by making each a cylinder
             union() {
                 // The two vertical pieces
-                translate([hole_offset/2, 0, width/2]) rotate([-90, 0, 0]) cylinder(h = height, r = width/2);
-                translate([hole_to_hole - hole_offset/2, 0, width/2]) rotate([-90, 0, 0]) cylinder(h = height, r = width/2);
+                translate([hole_offset/2, 0, width]) rotate([-90, 0, 0]) cube([base_thickness*2, width, height]);
+                translate([hole_to_hole - hole_offset/2 - base_thickness*2, 0, width]) rotate([-90, 0, 0]) cube([base_thickness*2, width, height]);
                 // The horizontal piece
-                translate([hole_offset/2, height, width/2]) rotate([0, 90, 0]) cylinder(h = hole_to_hole - hole_offset, r = width/2); 
+                translate([hole_offset/2, height, width/2]) rotate([0, 90, 0]) cylinder(h = hole_to_hole - hole_offset, r = width/2 + base_thickness/2); 
             }
         }
         
@@ -48,9 +49,8 @@ rotate([-90, 0, 0]) difference() {
         translate([hole_to_hole - width + (width - hole_offset)/2, 0, width]) rotate([-90, 0, 0]) roundedCube([mount_length, width, base_thickness], width/2, true);
     }
     
-    // The cylinder cutouts in the vertical parts
-    translate([hole_offset/2, base_thickness, width/2]) rotate([-90, 0, 0]) cylinder(h = height, r = width/2 - 2);
-    translate([hole_to_hole - hole_offset/2, base_thickness, width/2]) rotate([-90, 0, 0]) cylinder(h = height, r = width/2 - 2);
+    // Cutting out the hand area on the base
+    translate([hole_offset/2 + base_thickness*2, 0, 0]) cube([hole_to_hole - hole_offset - base_thickness*4, height - r - base_thickness/2, width]);
     
     // The bolt holes
     translate([0, 0, width/2]) rotate([-90, 0, 0]) cylinder(h = height, r = m6_r);
