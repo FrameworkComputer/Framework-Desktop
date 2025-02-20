@@ -1,5 +1,7 @@
 # Framework-Desktop
-Documentation for the Mainboard and printable mechanical parts in the Framework Desktop
+Documentation for the Mainboard and printable mechanical parts in the Framework Desktop.
+
+![Framework-Desktop-Teardown-2025](https://github.com/user-attachments/assets/77a0d390-1359-4ec2-8146-080500215209)
 
 ## License
 
