@@ -1,5 +1,13 @@
 # Case
 
+## Case
+
+CAD for the overall case structure.
+
+## Left Panel
+
+CAD for the left panel.
+
 ## Top Cover
 
 CAD for the Top Cover part of the Framework Desktop to design alternative versions.
